@@ -1,0 +1,13 @@
+# octo-sts trust policy (B1, docs/design/planned/ci-credential-brokers.md §4, #17400).
+# Rules: jade check octo-sts-policies. Callers: jade/cmd/check_octo_sts_policies_test.go.
+# Install as aflock-ai/homebrew-tap .github/chainguard/judge-release-fanout.sts.yaml.
+# release-fanout.yml brew-bump job (dispatched on main). Replaces HOMEBREW_TAP_TOKEN.
+issuer: https://token.actions.githubusercontent.com
+audience: sts.platform.testifysec.com
+subject: repo:testifysec/judge:ref:refs/heads/main
+claim_pattern:
+  repository_id: "648234269"
+  job_workflow_ref: testifysec/judge/\.github/workflows/release-fanout\.yml@refs/heads/main
+  event_name: workflow_dispatch
+permissions:
+  contents: write
