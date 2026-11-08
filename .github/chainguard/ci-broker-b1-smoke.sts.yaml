@@ -1,0 +1,14 @@
+# octo-sts trust policy (B1, docs/design/planned/ci-credential-brokers.md §4, #17400).
+# Rules: jade check octo-sts-policies. Callers: jade/cmd/check_octo_sts_policies_test.go.
+# Install as aflock-ai/homebrew-tap .github/chainguard/ci-broker-b1-smoke.sts.yaml.
+# ci-broker-b1-smoke.yml tap-exchange job: one read-only exchange against the tap on demand, so the
+# App installation and octo-sts's path to this repository are proven outside a GA release.
+issuer: https://token.actions.githubusercontent.com
+audience: sts.platform.testifysec.com
+subject: repo:testifysec/judge:ref:refs/heads/main
+claim_pattern:
+  repository_id: "648234269"
+  job_workflow_ref: testifysec/judge/\.github/workflows/ci-broker-b1-smoke\.yml@refs/heads/main
+  event_name: workflow_dispatch
+permissions:
+  contents: read
